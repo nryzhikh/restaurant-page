@@ -1,20 +1,64 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const restaurantImage = "restaurant-image.jpg";
-    const restaurantName = "Our Restaurant";
-    const restaurantDescription = `At ${restaurantName}, we believe in serving not just food but a wonderful experience. 
-        Our chefs are dedicated to preparing dishes that delight your taste buds and leave you wanting more. 
-        The warm and inviting ambiance of our restaurant sets the perfect mood for a memorable dining experience. 
-        Whether you're celebrating a special occasion or just looking for a great meal, we have something for everyone. 
-        Come and join us for an unforgettable culinary journey!`;
+import './style.css';
+import renderMenu from './menu.js';
+import renderHome from './home.js';
+import renderContact from './contact.js';
 
-    const header = document.createElement("header");
-    header.innerHTML = `<h1>Welcome to ${restaurantName}</h1>`;
+document.addEventListener("DOMContentLoaded", function () {
+
+    const header = document.createElement("div");
+    header.classList.add("header");
+
+    const btnHome = document.createElement('div');
+    const btnMenu = document.createElement('div');
+    const btnContact = document.createElement('div');
+
+    btnHome.innerHTML = 'Check home';
+    btnMenu.innerHTML = 'Check menu';
+    btnContact.innerHTML = 'Check contact';
+
+    btnHome.onclick = () => {
+        renderHome();
+        activeHome();
+    };
+    btnMenu.onclick = () => {
+        renderMenu();
+        activeMenu();
+    };
+    btnContact.onclick = () => {
+        renderContact();
+        activeContact();
+    };
+
+    header.appendChild(btnHome);
+    header.appendChild(btnMenu);
+    header.appendChild(btnContact);
+
     document.body.appendChild(header);
 
-    const main = document.createElement("main");
-    main.innerHTML = `
-        <img src="${restaurantImage}" alt="Restaurant Interior" width ="400" height = "500">
-        <p>${restaurantDescription}</p>
-    `;
-    document.body.appendChild(main);
+    const content = document.createElement("div");
+    content.id = "content";
+    document.body.appendChild(content);
+
+
+    const activeHome = () => {
+        btnHome.classList.add("active");
+        btnMenu.classList.remove("active");
+        btnContact.classList.remove("active");
+    };
+
+    const activeMenu = () => {
+        btnHome.classList.remove("active");
+        btnMenu.classList.add("active");
+        btnContact.classList.remove("active");
+    };
+
+    const activeContact = () => {
+        btnHome.classList.remove("active");
+        btnMenu.classList.remove("active");
+        btnContact.classList.add("active");
+    };
+
+    renderHome();
+    activeHome();
+    
 });
